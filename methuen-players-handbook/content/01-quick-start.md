@@ -101,17 +101,49 @@ Your campaign will specify how to calculate initiative:
 
 When it's your turn, you can perform **actions**. Each action has four parts:
 
-**if**: Conditions you must meet
-**do**: Costs you pay
-**then**: What happens on success
-**else**: What happens on failure (optional)
+- if
+- do
+- then
+- else
 
-#### Example Action: Basic Attack
+`if` is a condition check. 
+`do`, `then`, and `else` are all effects or actions.
 
+The execution order is:
+1. (if)
+2. true: (do), false: (else)
+3. (then)
+
+Each of these fields can be written inline or reference another component (check or action).
+
+An inline example called `Mind Burn` which attempts to damage a target's Sanity resource:
+```Mind Burn (Action)
+if: 1d10+[Wisdom] > 1d10+[Target Intellect]
+do: [Target Sanity] -= 1d8+[Intellect] 
+then: ([Mana] -= 3) AND ([ActionPoints] -= 1)
 ```
-if: Adjacent to target AND self.actionPoints >= 1
-do: self.actionPoints -= 1
-then: target.health -= (1d6 + self.strength)
+Notice the omission of a `else` attribute. Because there is nothing to do when the if check fails, it's omitted.
+
+Now if we want to rewrite Mind Burn using references allowing the effects to be reused for other actions.
+
+```Wisdom Over Intellect (Check)
+1d10+[Wisdom] > 1d10+[Target Intellect]
+```
+
+```Damage Sanity (Effect) 
+[Target Sanity] -= 1d8+[Intellect] 
+```
+
+```Spell Cost (Effect)
+[Mana] -= 3
+[Action Points] -= 1
+```
+
+With these definitions in the campaign book, Mind Burn can now be written as:
+```Mind Burn (Action)
+if: #Wisdom Over Intellect
+do: #Damage Sanity
+then: #Spell Cost
 ```
 
 **How to perform it**:
