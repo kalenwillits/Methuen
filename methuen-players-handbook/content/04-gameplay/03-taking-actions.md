@@ -8,29 +8,109 @@
 
 Every action follows this template:
 
-### if: Conditions
-Requirements that must be met to attempt the action
-- Resource checks (self.actionPoints >= 2)
-- Range requirements (target within 5 spaces)
-- State requirements (target is on "forest" tile)
+### if: Condition Check
 
-### do: Costs
-Resources spent to perform the action
-- Resource deductions (self.actionPoints -= 1)
-- Material consumption (self.arrows -= 1)
-- State changes required to attempt
+A boolean expression that determines whether the action's primary effect (do) or alternative effect (else) executes.
 
-### then: Success Outcome
-What happens when the action succeeds
-- Effects on target (target.health -= damage)
-- Effects on self (self.position moves 3N)
-- Changes to environment (tile becomes "burned")
+- Resource comparisons (`[ActionPoints] >= 2`)
+- Range requirements (`Adjacent to target`)
+- State checks (`Target is on "forest" tile`)
+- Compound conditions (`Adjacent to target AND [ActionPoints] >= 1`)
 
-### else: Failure Outcome (Optional)
-What happens if conditions aren't met or action fails
-- Partial effects
-- Alternative consequences
+### do: Primary Effects
+
+Effects that execute **only when the condition is TRUE**.
+
+- Resource modifications (`[Target Health] -= (1d6 + [Strength])`)
+- Position changes (`Move 3 spaces North`)
+- State changes (`Target becomes "poisoned"`)
+- Multiple effects (execute in order listed)
+
+### then: Always-Executed Effects
+
+Effects that **always execute**, regardless of whether the condition was true or false.
+
+- Costs (`[ActionPoints] -= 1`)
+- Resource modifications (`[Energy] -= 2`)
+- Cleanup effects (`Remove marker from tile`)
+- Universal consequences (execute after do or else)
+
+### else: Alternative Effects (Optional)
+
+Effects that execute **only when the condition is FALSE**.
+
+- Partial effects (`[Target Health] -= 1` instead of full damage)
+- Alternative outcomes (`Create noise instead of moving`)
+- Failure consequences (`Weapon durability decreases`)
 - Often omitted if no failure state exists
+
+## Execution Order
+
+Actions execute in this sequence:
+
+1. **Evaluate (if)**: Check if the condition is true or false
+2. **Conditional Branch**:
+   - If TRUE: Execute (do)
+   - If FALSE: Execute (else) if defined
+3. **Always Execute**: Execute (then)
+
+**Example Flow**:
+```
+if: [ActionPoints] >= 2
+do: [Target Health] -= 1d6
+then: [ActionPoints] -= 1
+```
+
+If you have 3 ActionPoints:
+1. Check: 3 >= 2? TRUE
+2. Execute (do): Deal 1d6 damage to target
+3. Execute (then): Lose 1 ActionPoint (now have 2)
+
+If you have 1 ActionPoint:
+1. Check: 1 >= 2? FALSE
+2. Skip (do): No damage dealt
+3. Execute (then): Lose 1 ActionPoint (now have 0)
+
+**Note**: The (then) component always executes, making it ideal for costs that must be paid regardless of success.
+
+## Component References
+
+Actions can be written **inline** (all components defined directly) or using **component references** (reusable named components).
+
+### Inline Action
+
+```
+Basic Attack (Action)
+if: Adjacent to target AND [ActionPoints] >= 1
+do: [Target Health] -= (1d6 + [Strength])
+then: [ActionPoints] -= 1
+```
+
+### Referenced Components
+
+Components can be defined separately and referenced with `#` notation:
+
+```
+Adjacent With ActionPoints (Check)
+Adjacent to target AND [ActionPoints] >= 1
+
+Deal Basic Damage (Effect)
+[Target Health] -= (1d6 + [Strength])
+
+Pay Action Cost (Effect)
+[ActionPoints] -= 1
+
+Basic Attack (Action)
+if: #Adjacent With ActionPoints
+do: #Deal Basic Damage
+then: #Pay Action Cost
+```
+
+**Benefits of References**:
+- Reuse components across multiple actions
+- Clearer action definitions
+- Easier to maintain and update
+- Consistent effects throughout campaign
 
 ## Performing an Action
 
@@ -38,38 +118,36 @@ What happens if conditions aren't met or action fails
 
 Announce which action you're performing and what/who the target is.
 
-**Example**: "I'm using Harvest Crop on the tile at 3N 2W"
+**Example**: "I'm using Basic Attack on the adjacent enemy"
 
-### Step 2: Check Conditions (if)
+### Step 2: Check Condition (if)
 
-Verify all conditions in the **if** component are met:
+Evaluate the condition in the **if** component:
 
 - Do you meet resource requirements?
 - Is the target in range?
 - Are state requirements satisfied?
 
-If any condition fails, proceed to **else** (if defined) or the action cannot be performed.
+The result (true or false) determines whether (do) or (else) executes next.
 
-### Step 3: Pay Costs (do)
+### Step 3: Execute Conditional Effect
 
-Deduct resources or make changes specified in the **do** component:
-
-- Subtract action points
-- Consume materials
-- Change states
-
-**Important**: Costs are paid even if later steps fail.
-
-### Step 4: Resolve Outcome (then)
-
-Apply all effects listed in the **then** component:
+**If condition is TRUE**: Execute the **do** component
+**If condition is FALSE**: Execute the **else** component (if defined)
 
 - Calculate expressions (roll dice, reference resources)
 - Modify resources
-- Change positions
-- Update states
+- Change positions or states
 
-If the **then** component includes multiple effects, resolve them in the order listed.
+### Step 4: Execute Always-Effect (then)
+
+Apply all effects in the **then** component:
+
+- Pay costs (action points, resources, etc.)
+- Apply universal effects
+- Execute cleanup operations
+
+The (then) component **always executes** regardless of the condition outcome.
 
 ### Step 5: Update Character Sheet
 
@@ -77,36 +155,64 @@ Record all resource changes on your character sheet.
 
 ## Example Action Walkthrough
 
-**Action: Precise Strike**
+**Action: Power Strike**
 
 ```
-if: Adjacent to target AND self.actionPoints >= 2
-do: self.actionPoints -= 2
-then: target.health -= (1d6+self.accuracy)
-else: self.actionPoints -= 1 (partial cost for failed attempt)
+Power Strike (Action)
+if: Adjacent to target AND [ActionPoints] >= 2
+do: [Target Health] -= (1d6 + [Strength])
+then: [ActionPoints] -= 2
 ```
+
+**Scenario**: You have 4 ActionPoints and 3 Strength. The target has 15 Health.
 
 **Walkthrough**:
 
-1. **Declare**: "I use Precise Strike on the adjacent actor"
+1. **Declare**: "I use Power Strike on the adjacent enemy"
 
-2. **Check Conditions**:
+2. **Check Condition**:
    - Adjacent to target? Yes (1 space away)
-   - self.actionPoints >= 2? Yes (I have 4)
-   - Conditions met ✓
+   - [ActionPoints] >= 2? Yes (I have 4)
+   - Condition evaluates to TRUE ✓
 
-3. **Pay Costs**:
-   - self.actionPoints -= 2
-   - 4 - 2 = 2 actionPoints remaining
-
-4. **Resolve Outcome**:
+3. **Execute (do)** (condition was true):
    - Roll 1d6: result is 4
-   - Add self.accuracy: 4 + 3 = 7
-   - target.health -= 7
-   - Target had 15 health, now has 8
+   - Add [Strength]: 4 + 3 = 7
+   - [Target Health] -= 7
+   - Target had 15 Health, now has 8
+
+4. **Execute (then)** (always executes):
+   - [ActionPoints] -= 2
+   - 4 - 2 = 2 ActionPoints remaining
 
 5. **Update Sheet**:
    - ActionPoints: 4 → 2
+   - Target Health: 15 → 8
+
+**Alternative Scenario**: You have only 1 ActionPoint.
+
+1. **Check Condition**: 1 >= 2? FALSE ✗
+2. **Skip (do)**: No damage dealt (condition was false)
+3. **Execute (then)**: [ActionPoints] -= 2, but you only have 1, so it goes to 0
+4. **Result**: You paid the cost but dealt no damage
+
+## Example with (else) Component
+
+**Action: Risky Strike**
+
+```
+Risky Strike (Action)
+if: 1d20 + [Dexterity] > [Target Dexterity] + 10
+do: [Target Health] -= 2d6
+else: [Health] -= 1d4
+then: [ActionPoints] -= 1
+```
+
+**Execution**:
+1. Roll condition check
+2. If you succeed: Deal 2d6 damage to target
+3. If you fail: Take 1d4 damage to yourself
+4. Always: Pay 1 ActionPoint
 
 ## Multiple Targets
 
@@ -126,7 +232,7 @@ Performed during your turn's action phase (or whenever, if flexible turn structu
 
 ### Reactions
 
-Special actions performed outside your turn in response to triggers. See **Chapter 8: Reactions**.
+Special actions performed outside your turn in response to triggers. See **Chapter 5: Reactions**.
 
 ### Free Actions
 
@@ -134,50 +240,96 @@ Actions that don't count against action economy, as defined by campaign.
 
 ## Common Action Patterns
 
-### Resource Transfer
-```
-if: self.gold >= amount
-do: self.gold -= amount
-then: target.gold += amount
-```
+### Resource Transfer (Always Succeeds)
 
-### Position Change
 ```
-if: self.movementPoints >= 3
-do: self.movementPoints -= 3
-then: self.position changes 3 spaces in chosen direction
+Give Gold (Action)
+if: [Gold] >= amount
+do: [Gold] -= amount, [Target Gold] += amount
+then: (none)
 ```
 
-### Conditional Effect
+Execution: If you have enough gold, transfer it. No cost in (then) because the cost is in (do).
+
+### Movement with Cost
+
 ```
-if: target.health < 10
-do: self.actionPoints -= 1
-then: target.health -= 2d6
-else: target.health -= 1d6
+Sprint (Action)
+if: [MovementPoints] >= 3
+do: Move 3 spaces in chosen direction
+then: [Energy] -= 1
 ```
 
-## Action Costs vs. Effects
+Execution: If you have movement, move. Always pay 1 Energy regardless.
 
-**Important Distinction**:
+### Conditional Damage with Universal Cost
 
-- **Costs** (do): Paid by the actor performing the action
-- **Effects** (then/else): Applied to targets or environment
+```
+Precise Shot (Action)
+if: [Target Distance] <= [Accuracy]
+do: [Target Health] -= 2d6
+else: [Target Health] -= 1d6
+then: [Arrows] -= 1, [ActionPoints] -= 1
+```
 
-Costs are always paid, even if the outcome doesn't occur as intended.
+Execution: Hit or miss, you always consume an arrow and action point. Damage varies by accuracy.
+
+### Failed Action Feedback
+
+```
+Hack Computer (Action)
+if: 1d20 + [Intelligence] > [Target Security]
+do: Gain access to system
+else: Alarm triggers, [Target Security] += 2
+then: [ActionPoints] -= 1
+```
+
+Execution: Success grants access. Failure increases security. Cost always paid.
+
+## Component Reusability
+
+Define commonly used checks and effects once, reference many times:
+
+```
+Has Action Point (Check)
+[ActionPoints] >= 1
+
+Pay One Action (Effect)
+[ActionPoints] -= 1
+
+Attack (Action)
+if: #Has Action Point AND Adjacent to target
+do: [Target Health] -= 1d6
+then: #Pay One Action
+
+Defend (Action)
+if: #Has Action Point
+do: [Defense] += 2 until next turn
+then: #Pay One Action
+
+Move (Action)
+if: #Has Action Point
+do: Move 1 space
+then: #Pay One Action
+```
+
+Three different actions all reuse the same check and cost components.
 
 ## Invalid Actions
 
 You cannot perform an action if:
 
-- Conditions are not met (if fails)
-- You cannot pay the cost (insufficient resources)
+- The action is not available to your actor
 - No valid target exists
-- Campaign rules prohibit it
+- Campaign rules prohibit it at this time
+
+**Note**: Even if the (if) condition is false, you can still attempt the action (the else and then components may execute). The condition only determines whether (do) or (else) executes.
 
 ---
 
 ## See Also
 
-- **Chapter 2**: Dice Notation - Understanding expressions
-- **Chapter 6**: Turn Structure - When actions can be performed
-- **Chapter 11**: Actions Design - For campaign designers creating actions
+- **Chapter 1**: Quick Start - Introduction to actions
+- **Chapter 3**: Core Concepts - Resources and dice notation
+- **Chapter 4**: Turn Structure - When actions can be performed
+- **Chapter 5**: Reactions - Special trigger-based actions

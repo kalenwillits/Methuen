@@ -19,10 +19,7 @@ Distance is measured in **spaces** on the grid.
 **Cardinal Distance** (N, E, S, W): Count spaces directly
 - 3 spaces North = 3 spaces
 
-**Diagonal Distance** (NE, SE, SW, NW): Each diagonal counts as 1 space, but costs more movement resources (typically 1.5×, rounded up)
-
-**Mixed Distance**: Count total spaces, including both cardinal and diagonal moves
-- 2 North, 3 East = 5 spaces total
+**Diagonal Distance** (NE, SE, SW, NW): Each diagonal counts as 1.5 spaces rounded up.
 
 ### Range Categories
 

@@ -8,14 +8,38 @@ metadata:
   description: "Comprehensive guide to designing Methuen campaigns"
   subject: "Game Design, Tabletop Roleplaying Games"
 
-# Default CSS applied to all chapters (relative to assets/css/)
+# Default CSS applied to all chapters
 default_css:
   - "methuen.css"
 
-# Chapter discovery settings
-content:
-  # How to discover chapters: "auto" scans content/ recursively
-  discovery: "auto"
+# Content discovery configuration
+discovery:
+  # Search only in the content/ directory
+  root: "content"
+
+  exclude:
+    - ".git"
+    - ".venv"
+    - "venv"
+    - "node_modules"
+    - "__pycache__"
+    - ".ebk"
+    - "build"
+    - "dist"
+    - "context"
+
+  content_extensions:
+    - ".md"
+
+  image_extensions:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".gif"
+    - ".svg"
+
+  css_extensions:
+    - ".css"
 
 # Output settings
 output:

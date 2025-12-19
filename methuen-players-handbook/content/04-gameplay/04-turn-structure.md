@@ -139,7 +139,10 @@ When it's your turn:
 
 1. [ ] Resolve start-of-turn triggers
 2. [ ] Decide actions and movement to perform
-3. [ ] Execute actions (pay costs, resolve effects)
+3. [ ] Execute actions:
+   - Evaluate (if) condition
+   - Execute (do) if true, (else) if false
+   - Execute (then) always
 4. [ ] Execute movement (pay costs, update location)
 5. [ ] Resolve end-of-turn triggers
 6. [ ] Announce turn complete

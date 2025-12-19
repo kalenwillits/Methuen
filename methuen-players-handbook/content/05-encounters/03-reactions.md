@@ -33,10 +33,12 @@ Reactions follow the same if/do/then/else structure as normal actions, plus a **
 ```
 Reaction: Opportunity Strike
 Trigger: Adjacent actor moves away
-if: self.actionPoints >= 1
-do: self.actionPoints -= 1
-then: target.health -= (1d4+self.strength)
+if: [ActionPoints] >= 1
+do: [Target Health] -= (1d4 + [Strength])
+then: [ActionPoints] -= 1
 ```
+
+**Execution**: When triggered → Check condition → If true: deal damage → Always: pay cost
 
 ### Performing Reactions
 
@@ -44,9 +46,11 @@ When a trigger event occurs:
 
 1. **Check if trigger applies**: Does the event match your reaction's trigger?
 2. **Declare reaction**: Announce you're using the reaction
-3. **Check conditions**: Verify if component is satisfied
-4. **Pay costs**: Spend resources from do component
-5. **Resolve outcome**: Apply then or else effects
+3. **Evaluate condition (if)**: Check if the condition is true or false
+4. **Execute conditional effect**:
+   - If TRUE: Execute (do)
+   - If FALSE: Execute (else) if defined
+5. **Execute always-effect (then)**: Apply effects that always execute
 6. **Resume original action**: The triggering actor continues their turn
 
 ## Reaction Timing

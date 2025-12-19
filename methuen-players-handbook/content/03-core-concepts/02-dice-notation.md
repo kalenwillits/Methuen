@@ -78,11 +78,16 @@ Dividing by zero results in zero (not an error).
 
 ### Negative Results
 
-Expressions cannot produce negative values. Any calculation resulting in less than zero becomes zero.
+Final expressions values cannot produce negative values. Any calculation resulting in less than zero becomes zero.
 
 **Example**: `5-8 = 0` (not -3)
 
 **Example**: `[health] - 50` when health is 20 results in `0`
+
+However, inner values may be negative. 
+
+**Example**: `(5-8) + 4 = 1`
+
 
 ### Floor Division
 
@@ -123,8 +128,11 @@ Note that expressions are read-only. Anything that performs a persisting operati
 - **Appendix B**: Quick Reference - Expression syntax summary
 
 
-Why don't we allow negative integers? 
+Why don't we allow negative integers on final expression results? 
 - To reduce complexity and the burden on campaign writers to test their expressions. For example, if a `damage` effect used an expression `[target health] -= 1d6+[strength]-(1d4+[target armor])`, This is a perfectly logical way to address armor and damage. However, if negative values were allowed there could be a chance for error that the damage effect actually increases a target's health with very high armor. This case would require a feature to not allow negative integers. Instead, we remove the ability to drop below zero in any calculation empowering campaign writers to know they're effects always adjust resources in the intended direction.
+
+Why floor divide? 
+- To simplify calculations. Resources may not be decimal numbers, there for fractional parts have no meaning to results.
 
 Typically dividing by zero is undefined. Why do we equal zero?
 - To avoid accidental zero division errors. It would be easy to write `1d20/1d10*[armor]`, but if armor is 0 we now need extra logic to handle that case. Instead, we cancel the division operation and place a 0.

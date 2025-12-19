@@ -84,23 +84,44 @@ How the action is referenced ("Swing Axe", "Harvest Crop", "Build Wall")
 ### Action Structure
 The if/do/then/else components:
 
-- **if**: Conditions that must be met
-- **do**: Costs paid to attempt the action
-- **then**: What happens on success
-- **else**: What happens on failure (optional)
+- **if**: Condition check (boolean expression)
+- **do**: Effects executed when condition is TRUE
+- **then**: Effects that ALWAYS execute
+- **else**: Effects executed when condition is FALSE (optional)
+
+Actions may use **inline** components or **reference** named components with `#` notation.
 
 ### Range and Target
 Who or what the action can affect
 
-**Example Action Entry**:
+**Example Action Entry (Inline)**:
 
 ```
 Harvest Crop
 Range: Adjacent tile
-if: Target tile is "Farmland" type AND has CropGrowth > 5
-do: Spend 1 ActionPoint
-then: Gain resources equal to CropGrowth, set tile's CropGrowth to 0
-else: (No effect)
+if: Target tile is "Farmland" type AND [CropGrowth] > 5
+do: Gain [Gold] equal to [CropGrowth], set tile's [CropGrowth] to 0
+then: [ActionPoints] -= 1
+else: (None)
+```
+
+**Example Action Entry (Referenced)**:
+
+```
+Can Harvest (Check)
+Target tile is "Farmland" type AND [CropGrowth] > 5
+
+Collect Crop (Effect)
+Gain [Gold] equal to [CropGrowth], set tile's [CropGrowth] to 0
+
+Pay Action Cost (Effect)
+[ActionPoints] -= 1
+
+Harvest Crop (Action)
+Range: Adjacent tile
+if: #Can Harvest
+do: #Collect Crop
+then: #Pay Action Cost
 ```
 
 ## Understanding Features vs Effects

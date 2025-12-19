@@ -11,17 +11,33 @@
 ## Action Structure
 
 ```
-if: Conditions
-do: Costs
-then: Success effects
-else: Failure effects (optional)
+if: Condition check (boolean)
+do: Effects when condition is TRUE
+then: Effects that ALWAYS execute
+else: Effects when condition is FALSE (optional)
 ```
+
+**Execution Order**: (if) → [true: (do), false: (else)] → (then)
+
+## Component References
+
+- `#Name`: Reference a Check or Effect component
+- Allows reusing components across multiple actions
+- Example: `if: #Has ActionPoints`
+
+## Resource Notation
+
+- `[Resource]`: Your resource value
+- `[Target Resource]`: Target's resource value
+- `[Resource] >= value`: Comparison
+- `[Resource] -= amount`: Modification
 
 ## Resource Rules
 
 - Positive integers only (≥ 0)
 - Cannot go below zero
 - Initialize on first use if lazy init
+- Default initialization value: 0
 
 ## Movement Costs
 
@@ -31,6 +47,23 @@ else: Failure effects (optional)
 ## Common Expressions
 
 - `1d20+modifier`: Modified roll
-- `self.resource`: Your resource value
-- `target.resource`: Target's resource value
+- `[Resource]`: Your resource value
+- `[Target Resource]`: Target's resource value
 - `(expression1)-(expression2)`: Complex calculation
+
+## Directions
+
+- **Cardinals**: N, E, S, W
+- **Diagonals**: NE, SE, SW, NW
+
+## Turn Checklist
+
+1. Resolve start-of-turn triggers
+2. Check action economy (how many actions allowed)
+3. Perform actions:
+   - Evaluate (if) condition
+   - Execute (do) if true, (else) if false
+   - Execute (then) always
+4. Perform movement
+5. Resolve end-of-turn triggers
+6. Announce turn complete

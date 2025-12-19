@@ -2,7 +2,9 @@
 
 ## What are Effects?
 
-**Effects** are active changes that occur when triggered by actions or features.
+**Effects** are active changes to game state that occur when triggered by actions or features.
+
+In actions, effects appear in the (do), (then), and (else) components. They can be written **inline** or defined as **reusable components** referenced with `#` notation.
 
 ## Effect Characteristics
 
@@ -16,48 +18,83 @@
 ### Resource Modification
 ```
 Deal 1d6 damage to target
-target.health -= 1d6
+[Target Health] -= 1d6
 
 Gain 10 gold
-self.gold += 10
+[Gold] += 10
 ```
 
 ### Position Change
 ```
 Move 3 spaces North
-self.location changes 3N
+Move 3N
 
 Push target 2 spaces away
-target.location changes 2 spaces directly away from self
+Move target 2 spaces directly away
 ```
 
 ### State Change
 ```
 Target becomes Frozen
-Set target.frozen = true (if campaign supports boolean states)
+Set [Target Frozen] = true (if campaign supports boolean states)
 
 Tile becomes impassable
-target.tile.type = "wall"
+[Target Tile Type] = "wall"
 ```
 
 ### Resource Transfer
 ```
 Transfer 5 gold to target
-self.gold -= 5, target.gold += 5
+[Gold] -= 5, [Target Gold] += 5
 ```
 
 ## Writing Effects
 
-**Template**:
+**Inline Format**:
 ```
-Plain English description of change
-Technical notation: resource.property operator value
+[Resource] operator value
+```
+
+**Component Format**:
+```
+Effect Name (Effect)
+[Resource] operator value
 ```
 
 **Be Explicit**:
 - State exactly what changes
 - Include calculations clearly
 - Specify targets precisely
+- Use [Resource] notation for resources
+
+## Effect Components
+
+Effects can be defined as reusable components:
+
+```
+Deal Standard Damage (Effect)
+[Target Health] -= (1d6 + [Strength])
+
+Pay Action Cost (Effect)
+[ActionPoints] -= 1
+
+Heal Self (Effect)
+[Health] += 1d6
+```
+
+Then reference in actions:
+
+```
+Attack (Action)
+if: Adjacent to target
+do: #Deal Standard Damage
+then: #Pay Action Cost
+```
+
+**Benefits**:
+- Consistency across similar actions
+- Easier to balance and adjust
+- Clearer action definitions
 
 ---
 

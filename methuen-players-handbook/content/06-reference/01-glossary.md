@@ -2,7 +2,7 @@
 
 ## A
 
-**Action**: A structured operation (if/do/then/else) that an actor can perform
+**Action**: A structured operation with four components: (if) condition check, (do) effects when true, (then) effects that always execute, (else) effects when false. Execution order: (if) → [true: (do), false: (else)] → (then)
 
 **Actor**: A named entity with location, heading, and resources that can perform actions
 
@@ -16,11 +16,15 @@
 
 **Cast**: Group of actors sharing initiative and turn
 
+**Check**: A boolean condition/expression that evaluates to true or false. Can be inline or defined as a reusable component referenced with # notation
+
+**Component**: A reusable Check or Effect that can be referenced by name using # notation (e.g., #Has ActionPoints)
+
 ## D
 
 ## E
 
-**Effect**: An active change to game state (plain English command)
+**Effect**: An active change to game state, such as resource modification, position change, or state change. Can be inline or defined as a reusable component referenced with # notation
 
 **Expression**: Mathematical formula combining dice, resources, and operators
 

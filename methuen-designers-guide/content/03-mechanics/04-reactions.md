@@ -19,14 +19,23 @@ Reactions add tactical depth by allowing responses outside normal turns.
 
 ### Reaction Structure
 
-Same as actions, plus trigger:
+Same as actions (if/do/then/else), plus trigger:
+
 ```
 Reaction: Counter-Attack
 Trigger: You are targeted by a melee action
-if: self.actionPoints >= 1
-do: self.actionPoints -= 1
-then: Deal 1d4 damage to attacker
+if: [ActionPoints] >= 1
+do: [Attacker Health] -= (1d4 + [Strength])
+then: [ActionPoints] -= 1
 ```
+
+**Execution**: When triggered → Check condition → If true: deal damage → Always: pay cost
+
+Reactions follow the same execution order as actions:
+1. Trigger event occurs
+2. Evaluate (if) condition
+3. Execute (do) if true, (else) if false
+4. Execute (then) always
 
 ## Reaction Timing
 
