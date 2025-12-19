@@ -1,0 +1,22 @@
+metadata:
+  title: "Methuen Designer's Guide"
+  author: "Kalen Willits"
+  language: "en-US"
+  identifier: "methuen-designers-guide-001"
+  date: "2025-12-19"
+  publisher: ""
+  description: "Comprehensive guide to designing Methuen campaigns"
+  subject: "Game Design, Tabletop Roleplaying Games"
+
+# Default CSS applied to all chapters (relative to assets/css/)
+default_css:
+  - "methuen.css"
+
+# Chapter discovery settings
+content:
+  # How to discover chapters: "auto" scans content/ recursively
+  discovery: "auto"
+
+# Output settings
+output:
+  filename: "methuen-designers-guide.epub"

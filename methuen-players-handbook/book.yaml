@@ -1,0 +1,22 @@
+metadata:
+  title: "Methuen Player's Handbook"
+  author: "Kalen Willits"
+  language: "en-US"
+  identifier: "methuen-players-handbook-001"
+  date: "2025-12-19"
+  publisher: ""
+  description: "Complete guide to playing Methuen tactical TTRPG framework"
+  subject: "Tabletop Roleplaying Games, Gaming"
+
+# Default CSS applied to all chapters (relative to assets/css/)
+default_css:
+  - "methuen.css"
+
+# Chapter discovery settings
+content:
+  # How to discover chapters: "auto" scans content/ recursively
+  discovery: "auto"
+
+# Output settings
+output:
+  filename: "methuen-players-handbook.epub"
