@@ -18,7 +18,7 @@ The framework provides structure; you provide content.
 
 ## Design Philosophy
 
-###Standardization Enables Portability
+### Standardization Enables Portability
 
 Players who learn Methuen can play any campaign without re-learning core rules. Your job is to work within the framework while creating unique experiences.
 

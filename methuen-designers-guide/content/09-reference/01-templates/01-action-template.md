@@ -195,6 +195,49 @@ else: (none)
 - Can soften failure or add risk
 - Use when failure should have consequences
 
+## Design Decision Guide
+
+### Should I use inline or referenced components?
+
+**Use Inline When:**
+- Action is unique or rarely reused
+- Campaign is small (< 20 actions)
+- Prototyping and iterating quickly
+
+**Use References When:**
+- Multiple actions share conditions/effects
+- Maintaining consistency is important
+- Campaign is large or will grow over time
+
+### Should conditions be resource checks or dice rolls?
+
+**Resource Checks** (`[ActionPoints] >= 2`):
+- Deterministic, predictable outcomes
+- Players can plan with certainty
+- Good for resource management focus
+
+**Dice Rolls** (`1d20 + [Dexterity] > 15`):
+- Adds uncertainty and tension
+- Creates memorable moments (crits/fails)
+- Good for action/adventure focus
+
+**Opposed Rolls** (`1d20+[Stat] > [Target Stat]+10`):
+- Interactive competition
+- Scales with character growth
+- Good for PvP or dramatic contests
+
+### Where should I put costs?
+
+**Cost in (then) - Always Paid:**
+- Use when: Attempting the action itself has consequences
+- Creates: Strategic positioning, resource tension
+- Example: Spell costs mana even if target is out of range
+
+**Cost in (do) - Only on Success:**
+- Use when: Failure shouldn't waste resources
+- Creates: Player-friendly experimentation
+- Example: Crafting only consumes materials if you have enough
+
 ## Component Reusability
 
 Define common components once:

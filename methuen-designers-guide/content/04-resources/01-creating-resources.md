@@ -36,10 +36,10 @@ See Chapter 13 for detailed initialization rules.
 ## Resource Interactions
 
 Resources can:
-- Modify expressions (self.strength + 1d6)
-- Trigger features (when health < 5)
-- Gate actions (if actionPoints >= 2)
-- Change through effects (health -= damage)
+- Modify expressions ([Strength] + 1d6)
+- Trigger features (when [Health] < 5)
+- Gate actions (if [ActionPoints] >= 2)
+- Change through effects ([Health] -= [Damage])
 
 ---
 

@@ -10,12 +10,14 @@ Every campaign book specifies:
 
 1. **Resources**: Which resources exist and how they initialize
 2. **Actions**: What operations actors can perform
-3. **Features**: Passive rules that modify gameplay
+3. **Features**: Campaign-level rules written in plain language (e.g., initiative, movement, special actor abilities)
 4. **Effects**: Active changes that alter game state
 5. **Movement System**: How actors move across the map
 6. **Initiative System**: How turn order is determined
 7. **Maps and Scenarios**: Where gameplay takes place
 8. **Completion Conditions**: How to win or complete the campaign
+
+> For complete details on Features, see **Chapter 3: Features**.
 
 ### Campaign Structure
 
@@ -82,14 +84,10 @@ Actions define what actors can do. Campaign books present actions with:
 How the action is referenced ("Swing Axe", "Harvest Crop", "Build Wall")
 
 ### Action Structure
-The if/do/then/else components:
 
-- **if**: Condition check (boolean expression)
-- **do**: Effects executed when condition is TRUE
-- **then**: Effects that ALWAYS execute
-- **else**: Effects executed when condition is FALSE (optional)
+Campaign books present actions using the if/do/then/else structure. Actions may use **inline** components or **reference** named components with `#` notation.
 
-Actions may use **inline** components or **reference** named components with `#` notation.
+> For complete details on how actions execute, see **Chapter 4: Taking Actions**.
 
 ### Range and Target
 Who or what the action can affect
@@ -127,20 +125,33 @@ then: #Pay Action Cost
 ## Understanding Features vs Effects
 
 ### Features (Passive)
-Rules that are always active or trigger automatically:
+Rules that are always active or trigger automatically. Formatted with **(Feature)** label:
 
-- "Move up to Dexterity spaces per turn"
-- "Immune to fire damage"
-- "Cannot enter water tiles"
+```
+Dexterous Movement (Feature)
+Move up to [Dexterity] spaces per turn
+```
+
+```
+Fire Immunity (Feature)
+This actor takes no damage from fire-based effects
+```
+
+```
+Water Restriction (Feature)
+This actor cannot enter water tiles
+```
 
 ### Effects (Active)
-Changes that happen when triggered:
+Changes that happen when triggered. Part of action structures:
 
-- "Deal 1d6 damage to target"
-- "Move target 3 spaces North"
-- "Gain 5 Gold"
+- `[Target Health] -= 1d6`
+- `Move target 3 spaces North`
+- `[Gold] += 5`
 
-**Key Difference**: Features describe ongoing rules; Effects describe specific changes.
+**Key Difference**: Features describe ongoing rules (written in plain language); Effects describe specific changes (use expressions and resource notation).
+
+> For more details, see **Chapter 3: Features**.
 
 ## Using the Glossary
 

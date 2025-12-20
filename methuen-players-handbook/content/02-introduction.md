@@ -22,9 +22,7 @@ Unlike traditional tabletop roleplaying games, Methuen focuses on:
 - **Discrete actions**: Actors perform specific, well-defined operations
 - **Resource management**: All game states are tracked through measurable resources
 - **Tactical decision-making**: Success comes from strategic resource allocation
-- **No game master**: Rules
-
- resolve all situations without adjudication
+- **No game master**: Rules resolve all situations without adjudication
 
 ### Who This Framework Is For
 

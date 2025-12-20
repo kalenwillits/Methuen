@@ -46,25 +46,26 @@ Standard mathematical order of operations applies:
 **Example**: `2+3*4` equals `14`, not `20`
 
 **Example**: `(2+3)*4` equals `20`
-### Complex Expression Example
-
 ### Resource Injection
-Actor resources can be injected into expressions using brackets. `[health]`
-If no modifier is present, the injected resource is from the actor performing the action.
-But there is no issue with being explicit for more complex cases. `[self health]`
-There is not a finite set of ways to write modifiers, the only rule is that they are clear to players in any condition to what actor they are referencing.
-It is best practice to include expanded definitions on "Resource Injection Access Modifiers" in the campaign
 
+**Resource Injection Syntax**: Use brackets `[]` to inject resource values into expressions.
+
+**Notation Rules**:
+- **Self resources**: `[ResourceName]` (e.g., `[Health]`, `[ActionPoints]`, `[Strength]`)
+- **Target resources**: `[Target ResourceName]` (e.g., `[Target Health]`, `[Target Defense]`)
+- Resource names are case-sensitive and defined by your campaign
+
+**Example Expression**:
 ```
-((1d6)+[accuracy])-((1d4/2)*([target dodge]))
+((1d6)+[Accuracy])-((1d4/2)*[Target Dodge])
 ```
 
 **Step-by-step** (with example values):
 1. Roll 1d6, get 4
-2. Add self.accuracy (assume 3): `4+3 = 7`
+2. Add your Accuracy (assume 3): `4+3 = 7`
 3. Roll 1d4, get 3
 4. Divide by 2: `3/2 = 1` (floor division)
-5. Multiply by target.dodge (assume 2): `1*2 = 2`
+5. Multiply by target's Dodge (assume 2): `1*2 = 2`
 6. Subtract: `7-2 = 5`
 7. **Final result**: 5
 
@@ -82,7 +83,7 @@ Final expressions values cannot produce negative values. Any calculation resulti
 
 **Example**: `5-8 = 0` (not -3)
 
-**Example**: `[health] - 50` when health is 20 results in `0`
+**Example**: `[Health] - 50` when Health is 20 results in `0`
 
 However, inner values may be negative. 
 
@@ -109,13 +110,13 @@ Dice rolls within expressions are summed before applying operators.
 ## Common Patterns
 
 ### Modified Roll
-`1d20+[dex]`: Roll with resource bonus
+`1d20+[Dexterity]`: Roll with resource bonus
 
 ### Contested Value
-`[attack]-[target defense]`: Compare two resources
+`[Attack]-[Target Defense]`: Compare two resources
 
 ### Scaled Damage
-`(1d6)*[power-level]`: Multiply random value by resource
+`(1d6)*[PowerLevel]`: Multiply random value by resource
 
 
 Note that expressions are read-only. Anything that performs a persisting operation on a actor's resource is called an "Effect" and should be written with a `=` assignment operator.
@@ -128,11 +129,11 @@ Note that expressions are read-only. Anything that performs a persisting operati
 - **Appendix B**: Quick Reference - Expression syntax summary
 
 
-Why don't we allow negative integers on final expression results? 
-- To reduce complexity and the burden on campaign writers to test their expressions. For example, if a `damage` effect used an expression `[target health] -= 1d6+[strength]-(1d4+[target armor])`, This is a perfectly logical way to address armor and damage. However, if negative values were allowed there could be a chance for error that the damage effect actually increases a target's health with very high armor. This case would require a feature to not allow negative integers. Instead, we remove the ability to drop below zero in any calculation empowering campaign writers to know they're effects always adjust resources in the intended direction.
+Why don't we allow negative integers on final expression results?
+- To reduce complexity and the burden on campaign writers to test their expressions. For example, if a `damage` effect used an expression `[Target Health] -= 1d6+[Strength]-(1d4+[Target Armor])`, This is a perfectly logical way to address armor and damage. However, if negative values were allowed there could be a chance for error that the damage effect actually increases a target's health with very high armor. This case would require a feature to not allow negative integers. Instead, we remove the ability to drop below zero in any calculation empowering campaign writers to know they're effects always adjust resources in the intended direction.
 
-Why floor divide? 
-- To simplify calculations. Resources may not be decimal numbers, there for fractional parts have no meaning to results.
+Why floor divide?
+- To simplify calculations. Resources may not be decimal numbers, therefore fractional parts have no meaning to results.
 
 Typically dividing by zero is undefined. Why do we equal zero?
-- To avoid accidental zero division errors. It would be easy to write `1d20/1d10*[armor]`, but if armor is 0 we now need extra logic to handle that case. Instead, we cancel the division operation and place a 0.
+- To avoid accidental zero division errors. It would be easy to write `1d20/1d10*[Armor]`, but if Armor is 0 we now need extra logic to handle that case. Instead, we cancel the division operation and place a 0.

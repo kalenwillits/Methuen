@@ -110,9 +110,9 @@ Reduce or avoid incoming harm:
 ```
 Reaction: Dodge
 Trigger: You are targeted by a ranged action
-if: self.actionPoints >= 1
-do: self.actionPoints -= 1
-then: Reduce damage by self.dexterity
+if: [ActionPoints] >= 1
+do: [ActionPoints] -= 1
+then: Reduce damage by [Dexterity]
 ```
 
 ### Counter Reactions
@@ -122,8 +122,8 @@ Respond to actions with your own action:
 ```
 Reaction: Counter-Spell
 Trigger: An actor within 10 spaces performs a spell action
-if: self.mana >= 3
-do: self.mana -= 3
+if: [Mana] >= 3
+do: [Mana] -= 3
 then: Cancel the triggering spell
 ```
 
@@ -134,8 +134,8 @@ Exploit enemy mistakes:
 ```
 Reaction: Opportunity Strike
 Trigger: Adjacent actor moves away
-if: self.actionPoints >= 1
-do: self.actionPoints -= 1
+if: [ActionPoints] >= 1
+do: [ActionPoints] -= 1
 then: Perform basic attack
 ```
 
@@ -172,13 +172,13 @@ Some reactions can prevent actions:
 ```
 Reaction: Interrupt
 Trigger: An actor within 5 spaces begins an action
-if: (1d20+self.speed) > target.speed
-do: self.actionPoints -= 2
-then: Target's action is canceled, costs are still paid
+if: (1d20+[Speed]) > [Target Speed]
+do: [ActionPoints] -= 2
+then: Target's action is canceled
 else: Target's action proceeds normally
 ```
 
-**Key Point**: Even if an action is canceled, the target usually still pays the costs (do component).
+**Note**: These examples use the "cost in do" pattern, meaning you only pay the reaction cost if the condition succeeds. This prevents wasting resources on failed reactions.
 
 ## Tracking Reactions
 

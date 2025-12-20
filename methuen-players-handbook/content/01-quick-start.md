@@ -90,82 +90,89 @@ Follow your campaign's character creation rules:
 
 **Initiative** determines turn order. Higher initiative acts first.
 
-Your campaign will specify how to calculate initiative:
-- Roll 1d20 and add a resource
-- Use a specific resource value
-- Roll initiative fresh each round
+Your campaign will specify initiative through a **Feature** (a campaign-level rule). Common examples:
 
-**Example**: "Initiative = 1d20 + Dexterity"
+```
+Initiative Roll (Feature)
+Roll 1d20 + [Dexterity] at start of encounter
+Highest result goes first each round
+```
+
+```
+Speed-Based Initiative (Feature)
+Initiative equals [Speed]
+Highest Speed acts first
+```
+
+> For more on Features, see **Chapter 3: Features**.
 
 ### 4. Take Actions
 
-When it's your turn, you can perform **actions**. Each action has four parts:
+When it's your turn, you can perform **actions**. Each action has four components:
 
-- if
-- do
-- then
-- else
+- **if**: Condition check (boolean expression that evaluates to true or false)
+- **do**: Effects executed when the condition is TRUE
+- **then**: Effects that ALWAYS execute (this is where costs typically go)
+- **else**: Effects executed when the condition is FALSE (optional)
 
-`if` is a condition check. 
-`do`, `then`, and `else` are all effects or actions.
+**Execution order**: (if) → [true: (do), false: (else)] → (then)
 
-The execution order is:
-1. (if)
-2. true: (do), false: (else)
-3. (then)
+Here's a simple example called `Basic Attack`:
 
-Each of these fields can be written inline or reference another component (check or action).
-
-An inline example called `Mind Burn` which attempts to damage a target's Sanity resource:
-```Mind Burn (Action)
-if: 1d10+[Wisdom] > 1d10+[Target Intellect]
-do: [Target Sanity] -= 1d8+[Intellect] 
-then: ([Mana] -= 3) AND ([ActionPoints] -= 1)
 ```
-Notice the omission of a `else` attribute. Because there is nothing to do when the if check fails, it's omitted.
+Basic Attack (Action)
+Range: Adjacent
+Target: Single actor
 
-Now if we want to rewrite Mind Burn using references allowing the effects to be reused for other actions.
-
-```Wisdom Over Intellect (Check)
-1d10+[Wisdom] > 1d10+[Target Intellect]
+if: [ActionPoints] >= 1
+do: [Target Health] -= 1d6
+then: [ActionPoints] -= 1
 ```
 
-```Damage Sanity (Effect) 
-[Target Sanity] -= 1d8+[Intellect] 
-```
+**How it works**:
 
-```Spell Cost (Effect)
-[Mana] -= 3
-[Action Points] -= 1
-```
+1. **Check condition**: Do you have at least 1 ActionPoint?
+2. **If TRUE**: Deal 1d6 damage to the target's Health (this is the `do` effect)
+3. **Always**: Spend 1 ActionPoint (this is the `then` effect - the cost)
 
-With these definitions in the campaign book, Mind Burn can now be written as:
-```Mind Burn (Action)
-if: #Wisdom Over Intellect
-do: #Damage Sanity
-then: #Spell Cost
-```
+Notice there's no `else` component. If you don't have enough ActionPoints, nothing happens.
 
 **How to perform it**:
 
 1. **Declare**: "I use Basic Attack on the adjacent enemy"
-2. **Check conditions**: Am I adjacent? Do I have 1+ actionPoints?
-3. **Pay cost**: Subtract 1 actionPoint
-4. **Resolve outcome**: Roll 1d6, add my strength, subtract from target's health
-5. **Update sheet**: Record new actionPoints value
+2. **Check condition**: Do I have 1+ ActionPoints?
+3. **Resolve outcome**: If yes, roll 1d6 and subtract from target's Health
+4. **Pay cost**: Subtract 1 ActionPoint (happens whether attack succeeds or not)
+5. **Update sheet**: Record new ActionPoints value
 
-**Important**: You pay the cost (do) even if the action fails!
+**Important**: The `then` component always executes. This means you typically pay costs even if the action's condition check fails!
+
+> **For complete details on actions**, including component references and advanced examples, see **Chapter 4: Taking Actions**.
 
 ### 5. Move Around
 
-Your campaign defines how movement works:
+Your campaign defines movement through a **Feature**. Common examples:
 
-**Resource-based**: "Move up to Dexterity spaces per turn"
-**Fixed**: "Move 6 spaces per turn"
-**Cost-based**: "Spend 1 actionPoint per space moved"
+```
+Dexterous Movement (Feature)
+Move up to [Dexterity] spaces per turn
+```
 
-**Flexible turns**: Move and act in any order
-**Phased turns**: Movement happens in a specific phase
+```
+Standard Movement (Feature)
+All actors move up to 6 spaces per turn
+```
+
+```
+AP Movement (Feature)
+Spend 1 [ActionPoint] per space moved
+```
+
+**Turn structure** (also defined by Features):
+- **Flexible**: Move and act in any order
+- **Phased**: Movement happens in a specific phase
+
+> For more on Features, see **Chapter 3: Features**.
 
 ### 6. End Your Turn
 
@@ -214,30 +221,24 @@ When you're done:
 - Goblin performs its action based on behavior rules in the campaign book
 - If it's a player-controlled actor, that player decides
 
-## Turn Structure Checklist
+## Turn Structure
 
-Use this every turn:
-
-1. [ ] Start-of-turn effects trigger
-2. [ ] Check how many actions you can perform
-3. [ ] Choose actions and targets
-4. [ ] For each action:
-   - [ ] Declare action and target
-   - [ ] Verify conditions (if)
-   - [ ] Pay costs (do)
-   - [ ] Resolve outcome (then or else)
-   - [ ] Update character sheet
-5. [ ] Perform movement (if allowed this phase)
-6. [ ] End-of-turn effects trigger
-7. [ ] Announce turn complete
+For a complete turn checklist, see **Quick Reference** (Appendix).
 
 ## Victory and Completion
 
-Your campaign defines when the game ends:
+Your campaign defines victory conditions through **Features** or explicit rules:
 - Defeat all enemies
 - Reach a specific resource threshold
 - Survive for X rounds
 - Complete an objective
+
+**Example Victory Feature**:
+```
+Survival Victory (Feature)
+Game ends when all player actors are removed from the map
+Actors with [Health] > 0 at game end are victorious
+```
 
 Check your campaign's victory condition before starting!
 

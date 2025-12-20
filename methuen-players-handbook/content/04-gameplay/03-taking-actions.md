@@ -191,10 +191,14 @@ then: [ActionPoints] -= 2
 
 **Alternative Scenario**: You have only 1 ActionPoint.
 
-1. **Check Condition**: 1 >= 2? FALSE ✗
+1. **Check Condition**: [ActionPoints] >= 2? (1 >= 2?) FALSE ✗
 2. **Skip (do)**: No damage dealt (condition was false)
-3. **Execute (then)**: [ActionPoints] -= 2, but you only have 1, so it goes to 0
-4. **Result**: You paid the cost but dealt no damage
+3. **Execute (then)**: [ActionPoints] -= 2
+   - Attempts to subtract 2 from 1
+   - Resources cannot go below 0, so ActionPoints becomes 0
+4. **Result**: You paid what you could (lost your remaining AP) but dealt no damage
+
+**Important**: The (then) component always executes, even when the condition fails. This means you can waste resources attempting actions you're not prepared for.
 
 ## Example with (else) Component
 
@@ -240,18 +244,52 @@ Actions that don't count against action economy, as defined by campaign.
 
 ## Common Action Patterns
 
-### Resource Transfer (Always Succeeds)
+The following examples are organized by complexity to help you learn the system.
+
+### Beginner Examples
+
+Simple actions with straightforward effects and no else clause.
+
+#### Basic Resource Check
+
+```
+Defend (Action)
+if: [ActionPoints] >= 1
+do: [Defense] += 2
+then: [ActionPoints] -= 1
+```
+
+Execution: If you have an ActionPoint, gain defense. Always spend the ActionPoint.
+
+#### Simple Movement
+
+```
+Move (Action)
+if: [MovementPoints] >= 1
+do: Move 1 space in chosen direction
+then: [MovementPoints] -= 1
+```
+
+Execution: If you have movement remaining, move. Always consume a movement point.
+
+### Intermediate Examples
+
+Actions with else clauses, multiple effects, or alternative patterns.
+
+#### Resource Transfer (Cost in Do Pattern)
 
 ```
 Give Gold (Action)
-if: [Gold] >= amount
-do: [Gold] -= amount, [Target Gold] += amount
+if: [Gold] >= 5
+do: [Gold] -= 5, [Target Gold] += 5
 then: (none)
 ```
 
-Execution: If you have enough gold, transfer it. No cost in (then) because the cost is in (do).
+Execution: If you have enough gold, transfer it. No cost in (then) because the cost is in (do). This means you only spend gold if you have enough.
 
-### Movement with Cost
+> **Note**: The amount transferred (5 in this example) is defined by your campaign. Some campaigns may make this a variable amount chosen by the player.
+
+#### Movement with Cost
 
 ```
 Sprint (Action)
@@ -262,7 +300,7 @@ then: [Energy] -= 1
 
 Execution: If you have movement, move. Always pay 1 Energy regardless.
 
-### Conditional Damage with Universal Cost
+#### Conditional Damage with Else Clause
 
 ```
 Precise Shot (Action)
@@ -274,7 +312,7 @@ then: [Arrows] -= 1, [ActionPoints] -= 1
 
 Execution: Hit or miss, you always consume an arrow and action point. Damage varies by accuracy.
 
-### Failed Action Feedback
+#### Action with Failure Consequences
 
 ```
 Hack Computer (Action)
@@ -286,7 +324,11 @@ then: [ActionPoints] -= 1
 
 Execution: Success grants access. Failure increases security. Cost always paid.
 
-## Component Reusability
+### Advanced Examples
+
+Actions using component references and complex patterns.
+
+#### Component Reusability
 
 Define commonly used checks and effects once, reference many times:
 

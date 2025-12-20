@@ -19,7 +19,7 @@ Some campaigns require initiative to be re-rolled under specific conditions:
 - At the start of each round
 - When an actor doesn't use movement or actions
 - When new actors join the encounter
-- As specified by campaign features
+- As specified by campaign Features (see Chapter 3: Features)
 
 Check your campaign's initiative system for details.
 
@@ -62,11 +62,19 @@ Campaigns define turn structure in one of two ways:
 
 ### Determining Action Limits
 
-Campaigns define action limits through features:
+Campaigns define action limits through Features:
 
-- "Single Action Per Turn": Exactly one action
-- "Two Actions Per Turn": Up to two actions
-- "Actions Equal to ActionPoints": Spend 1 ActionPoint per action
+```
+Single Action Per Turn (Feature)
+Each actor may perform exactly 1 action per turn
+```
+
+```
+Action Point Economy (Feature)
+Actors spend 1 [ActionPoint] per action performed
+```
+
+> See **Chapter 3: Features** for more action economy examples.
 
 ### Free Actions
 
@@ -80,13 +88,19 @@ Check your campaign for which actions are free.
 
 ## Movement Economy
 
-Similarly, campaigns define how much movement actors can perform:
+Similarly, campaigns define movement through Features (see Movement Features in Chapter 3):
 
 ### Resource-Based Movement
-"Move up to Dexterity spaces per turn" - flexible total distance
+```
+Dexterous Movement (Feature)
+Move up to [Dexterity] spaces per turn
+```
 
 ### Fixed Movement
-"Move 6 spaces per turn" - same for all actors
+```
+Standard Movement (Feature)
+All actors move 6 spaces per turn
+```
 
 ### Action-Point Movement
 "Spend 1 ActionPoint per space moved" - movement competes with actions
@@ -133,19 +147,11 @@ If multiple actors form a **cast** (share initiative), they act together during 
 
 See **Chapter 20: Casts and Groups** for details.
 
-## Turn Checklist
+## Turn Summary
 
-When it's your turn:
+A typical turn consists of: start-of-turn triggers → perform actions → execute movement → end-of-turn triggers → announce complete.
 
-1. [ ] Resolve start-of-turn triggers
-2. [ ] Decide actions and movement to perform
-3. [ ] Execute actions:
-   - Evaluate (if) condition
-   - Execute (do) if true, (else) if false
-   - Execute (then) always
-4. [ ] Execute movement (pay costs, update location)
-5. [ ] Resolve end-of-turn triggers
-6. [ ] Announce turn complete
+> For the complete turn checklist, see **Quick Reference** (Appendix).
 
 ---
 

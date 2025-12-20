@@ -8,11 +8,12 @@ Initiative determines turn order. Campaigns must define how initiative is determ
 
 ### 1. Simple Roll
 
-**Specification**:
+**Feature**:
 ```
-Initiative: Roll 1d20
-Highest goes first, re-roll ties
-Roll at start of encounter
+Initiative Roll (Feature)
+Roll 1d20 at start of encounter
+Highest result goes first each round
+Re-roll ties
 ```
 
 **Characteristics**:
@@ -24,11 +25,12 @@ Roll at start of encounter
 
 ### 2. Resource-Modified Roll
 
-**Specification**:
+**Feature**:
 ```
-Initiative: Roll 1d10 × Dexterity
-Highest goes first, re-roll ties  
-Roll at start of encounter
+Dexterity Initiative (Feature)
+Roll 1d10 × [Dexterity] at start of encounter
+Highest result goes first each round
+Re-roll ties
 ```
 
 **Characteristics**:
@@ -40,10 +42,12 @@ Roll at start of encounter
 
 ### 3. Static Initiative
 
-**Specification**:
+**Feature**:
 ```
-Initiative: Equal to Speed resource
-Highest goes first, ties broken by d20 roll
+Speed-Based Initiative (Feature)
+Initiative equals [Speed]
+Highest Speed acts first each round
+Ties broken by 1d20 roll
 Fixed for entire encounter
 ```
 

@@ -14,17 +14,17 @@ The expression calculates a result that is directly applied:
 
 ```
 Action: Harvest Crop
-then: [food] += (1d6+target.cropGrowth)
+then: [Food] += (1d6+[Target CropGrowth])
 ```
 
-The above is an example of an in-line effect. However, it's perfectly acceptable as a campaign grows to reference another action or effect that has it's own definition
-```Effect
-Increase Food
-[food] += (1d6+target.cropGrowth)
+The above is an example of an in-line effect. However, it's perfectly acceptable as a campaign grows to reference another action or effect that has its own definition:
 ```
-```Action
-Harvest Crop
-then: `Increase Food`
+Effect: Increase Food
+[Food] += (1d6+[Target CropGrowth])
+```
+```
+Action: Harvest Crop
+then: #Increase Food
 ```
 
 
@@ -54,8 +54,8 @@ Both actors calculate expressions, highest wins:
 
 ```
 Action: Arm Wrestle
-Self rolls: 1d20+self.strength
-Target rolls: 1d20+target.strength
+Self rolls: 1d20+[Strength]
+Target rolls: 1d20+[Target Strength]
 Higher result wins
 ```
 
@@ -198,7 +198,7 @@ When one effect triggers another:
 
 **Example**:
 ```
-Action reduces target.health to 0
+Action reduces [Target Health] to 0
 → Triggers "on death" effect
 → Explodes, dealing damage to adjacent actors
 → May trigger their "on damage" effects
@@ -221,7 +221,7 @@ then: Target tile type becomes "wall", blocks movement
 
 ```
 Action: Mine Ore
-then: self.ore += target.oreDeposit, target.oreDeposit becomes 0
+then: [Ore] += [Target OreDeposit], [Target OreDeposit] becomes 0
 ```
 
 ### Environmental Triggers

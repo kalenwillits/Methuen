@@ -186,7 +186,11 @@ do: [Target Health] -= 2d6 + [Strength]
 then: [ActionPoints] -= 2
 ```
 
-**Balance principle**: Higher costs, more powerful effects.
+**Design Commentary:**
+- **Design Goal**: Create meaningful tactical choices between efficiency and power. Players decide whether to use AP efficiently or burst damage.
+- **Balance Rationale**: Light Attack (1 AP, avg 2.5 damage) is most efficient. Heavy Attack (2 AP, avg 7+STR damage) trades efficiency for power. Medium Attack balances both with attribute scaling.
+- **Player Decision**: "Should I attack twice with Light, once with Heavy, or balance with Medium?" Creates resource management tension.
+- **Power Curve**: Costs scale sub-linearly (1, 1, 2) while damage scales super-linearly (1d4, 1d6+STR, 2d6+STR), rewarding investment in powerful attacks.
 
 ### Risk vs Reward
 
@@ -200,7 +204,11 @@ else: [Health] -= 1d6
 then: [ActionPoints] -= 2
 ```
 
-**Design**: High reward (3d6 damage) if you win the roll, but self-damage if you fail. Cost always paid.
+**Design Commentary:**
+- **Design Goal**: Create high-stakes decisions where players gamble for powerful effects. Introduces risk-reward tension.
+- **Balance Rationale**: Opposed roll (1d20+DEX vs DEX+10) gives roughly 30-40% success rate depending on attributes. High damage (3d6 avg 10.5) balances high cost (2 AP + potential self-damage).
+- **Player Decision**: "Is the reward worth risking my own Health?" Situational - valuable when ahead, dangerous when low on Health.
+- **Failure Consequence**: Taking damage on failure creates meaningful stakes and prevents spamming risky actions.
 
 ### Conditional vs Universal Costs
 
@@ -222,7 +230,10 @@ then: (none)
 ```
 Materials only consumed if you have enough. No waste.
 
-**Design Choice**: Decide whether failed attempts should consume resources.
+**Design Commentary:**
+- **When to Use Pattern 1** (Cost in then): Use for actions where attempting itself has consequences. Creates strategic positioning requirements, resource pressure, and punishes poor planning.
+- **When to Use Pattern 2** (Cost in do): Use for resource conversion or transactions where failure shouldn't waste materials. Player-friendly for crafting, trading, or construction.
+- **Design Impact**: Pattern 1 creates tension and risk. Pattern 2 feels fair and allows experimentation without penalty.
 
 ### Success/Failure Asymmetry
 
