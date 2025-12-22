@@ -1,0 +1,57 @@
+metadata:
+  title: "Methuen Designer's Guide"
+  author: "Kalen Willits"
+  language: "en-US"
+  identifier: "2b0c35a4-6d8e-4832-bcb7-071dd005a5d1"
+  date: "2025-12-22"
+  publisher: ""
+  description: "Comprehensive guide for creating tactical tabletop campaigns using the Methuen framework"
+  subject: "Games, Tabletop Gaming, Game Design"
+
+# Optional cover image (place anywhere in project - ebk will find it by extension)
+# Uncomment and provide your cover image
+# cover_image: "cover.jpg"
+
+# Default CSS applied to all chapters
+default_css:
+  - "custom.css"
+
+# Content discovery configuration
+# ebk recursively searches for files based on extensions, not directory structure
+discovery:
+  # Root directory for recursive search
+  # Use "." for project root (default), or specify a subdirectory like "pages"
+  root: "."
+
+  # Directories to exclude from all searches (markdown, CSS, images)
+  # Add any directories you want ebk to skip (e.g., drafts, archive, etc.)
+  exclude:
+    - ".git"
+    - ".venv"
+    - "venv"
+    - "node_modules"
+    - "__pycache__"
+    - ".ebk"
+    - "build"
+    - "dist"
+    - "context"
+
+  # File extensions for content (markdown chapters)
+  content_extensions:
+    - ".md"
+
+  # File extensions for images
+  image_extensions:
+    - ".jpg"
+    - ".jpeg"
+    - ".png"
+    - ".gif"
+    - ".svg"
+
+  # File extensions for stylesheets
+  css_extensions:
+    - ".css"
+
+# Output settings
+output:
+  filename: "methuen-designers-guide.epub"
