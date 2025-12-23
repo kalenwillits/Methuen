@@ -19,12 +19,9 @@ Special rules that modify core mechanics: initiative, movement, turn structure, 
 **Maps and Encounters**
 Scenarios, enemy placements, terrain.
 
-**Victory Conditions**
-How to win.
+## Creating an actor
 
-## Creating Your Actor
-
-Follow your campaign's character creation process:
+Actors are created in a setup phase of a seen.
 
 **1. Choose or Generate Name**
 Some campaigns provide names, others let you choose.
@@ -49,20 +46,6 @@ Write down or reference which actions your actor can perform.
 
 **5. Record Features**
 Note any special rules that apply to your actor.
-
-## Setup Phase
-
-**1. Read Victory Condition**
-Understand how to win before you start.
-
-**2. Set Up Map**
-Place terrain, markers, and actor positions as specified.
-
-**3. Determine Initiative**
-Roll or calculate initiative for all actors.
-
-**4. Prepare Materials**
-Have dice, character sheet, and campaign book ready.
 
 ## Playing the Game
 

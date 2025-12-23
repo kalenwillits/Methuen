@@ -1,39 +1,34 @@
 # Introduction
 
 ## What is Methuen?
+Methuen is a turn-based tabletop simulation framework supporting role playing,
+strategy, interactive fiction, and other game variants.  The core rule set is a
+deterministic resource management system where players control actors via
+actions through sets of encounters and scenes called campaigns.
 
-Methuen is a tactical tabletop game framework where you control actors on a
-grid-based map. Your goal is to achieve victory conditions defined in your
-campaign book—defeat enemies, reach objectives, or survive challenges.
+The purpose of this book is to be a guide for new and existing players to
+reference the Methuen rule set while playing through a campaign. If any
+conflicting information surfaces between this guide and a campaign, this guide
+will be the superseding document.
 
-Unlike traditional tabletop RPGs:
-- No game master required
-- All rules resolve deterministically
-- Resource management drives decision-making
-- Grid-based tactical positioning
-
-## What You Need
-
-### Required Materials
+## Materials
 
 **Campaign Book**
-Defines your game's content: actors, actions, resources, maps, and victory conditions. Each campaign is different but uses the same core rules.
+Defines entities and guides you through an experience.
+    - Campaign: The book that uses the Methuen rule set to define all of the following entities.
+    - Actors: Any **thing** that will take turns and that exists within an encounter. 
+    - Actions: What a actor can do during their turn.
+    - Reactions: Actions that can trigger during another actions turn.
+    - Resources: What an actor has.
+    - Maps: Grid-based spatial representations of an encounter.
+    - Scenes: What happens in-between encounters involving character creation, dice checks, and choices affecting progression.
+    - Features: Rules effecting any entity including the campaign itself. Used to create resource limits, actor movement, and victory conditions.
+    - Effects: Changes to resources, actor location, or game state.
 
 **Polyhedral Dice**
-Standard gaming dice set:
-- d4 (four-sided)
-- d6 (six-sided)
-- d8 (eight-sided)
-- d10 (ten-sided)
-- d12 (twelve-sided)
-- d20 (twenty-sided)
 
-**Character Sheet**
-Tracks your actor's:
-- Name and position
-- Resource values (health, energy, etc.)
-- Available actions
-- Special features
+**Pen & Paper**
+- To track your actor's resources and progression
 
 **Map and Markers**
 Grid-based map showing:
@@ -42,26 +37,4 @@ Grid-based map showing:
 - Movement coordinates
 
 **Pen and Paper**
-For recording resource changes and notes.
-
-## How to Win
-
-Victory conditions are defined by your campaign. Common examples:
-- Defeat all enemy actors
-- Reach a specific location
-- Survive for X turns
-- Accumulate Y resources
-
-Check your campaign book's victory condition before starting.
-
-## Using This Handbook
-
-**Chapters 2-4** cover core rules needed to play any Methuen campaign.
-
-**Chapter 5** covers advanced rules and special cases.
-
-**Chapter 6** provides quick reference materials for use during play.
-
-## Getting Started
-
-Read your campaign book's setup section, then proceed to Chapter 2: Core Concepts.
+- For recording resource changes and notes.

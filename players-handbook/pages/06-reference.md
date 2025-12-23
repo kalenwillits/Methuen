@@ -342,37 +342,6 @@ Roll d10, add Endurance, multiply by 2.
 **East**: 0N 3E (3 spaces east of origin)
 **Northeast**: 2N 2E (2 north, 2 east)
 
-### Distance Calculation
-
-Count spaces between actors using shortest path.
-
-**Adjacent**: 1 space
-**Nearby**: 2-3 spaces
-**Distant**: 4+ spaces
-
-Campaign defines range categories.
-
-## Status Effect Reference
-
-Common status effects (campaign-defined):
-
-**Poisoned**
-Periodic damage over time.
-
-**Burning**
-Damage at end of turn until extinguished.
-
-**Stunned**
-Cannot perform actions for duration.
-
-**Slowed**
-Reduced movement.
-
-**Boosted**
-Increased resource or capability.
-
-Check your campaign book for specific effects and mechanics.
-
 ## Component Reference Examples
 
 ### Defining Components
@@ -419,38 +388,3 @@ When starting a new campaign, verify you understand:
 ☐ Status effects
 ☐ Terrain types
 ☐ Map layout
-
-## Tips and Reminders
-
-### Always Remember
-
-- The (then) component ALWAYS executes
-- Resources cannot go below 0
-- Resources are whole numbers only
-- Update your sheet immediately after changes
-- Campaign rules override core rules
-
-### Easy to Forget
-
-- Diagonal movement often costs more
-- (then) executes even when (if) fails
-- Resources initialize on first use if not pre-initialized
-- Division results round down
-- Zero division equals zero (not an error)
-
-### Common Mistakes
-
-- Forgetting to execute (then) component
-- Not initializing resources when first referenced
-- Allowing resources to go negative
-- Not checking campaign-specific features
-- Executing actions without valid targets
-
-## Where to Look
-
-**Core mechanics**: Chapters 2-3
-**Turn structure**: Chapter 3
-**Setup and character creation**: Chapter 4
-**Advanced rules**: Chapter 5
-**Quick reference**: This chapter
-**Campaign-specific rules**: Your campaign book

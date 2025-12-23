@@ -4,28 +4,20 @@
 
 Use this sequence each turn:
 
-**CHECK** → Resolve start-of-turn effects and determine what you can do
-**ACT** → Perform your actions 
-**END** → Resolve end-of-turn effects and pass turn
-
-Your campaign may modify this structure through Features.
+**START** → Resolve start-of-turn features.
+**ACT** → Select and perform as few or as many actions as desired. 
+**END** → Resolve end-of-turn features.
 
 ## Initiative
-
-Initiative determines turn order. Higher initiative acts first.
-
-Your campaign defines how initiative works. Common examples:
-
+Turn order is be defined by a *global feature* in the campaign book.
+This is called the *initiative feature*. Without it, a campaign defaults to
+this initiative feature:
 ```
-Initiative Roll
-Roll 1d20 + Dexterity at start of encounter
-Highest result goes first
-```
-
-```
-Speed-Based Initiative
-Initiative equals Speed resource
-Highest Speed acts first
+Default Initiative
+When an actor or cast is first deployed to a map, roll 1d100. Turn order is in
+decending order. Ties are resolved by the two tied actors or casts rolling
+1d100 placing the higher rolling actor or cast in the turn before the lower
+rolling actor or cast.
 ```
 
 ## Performing Actions
@@ -48,7 +40,7 @@ Basic Attack
 Range: Adjacent
 Target: Single actor
 
-if: [ActionPoints] >= 1
+if: [Action Points] >= 1
 do: [Target Health] -= 1d6
 then: [ActionPoints] -= 1
 ```
@@ -258,15 +250,3 @@ Move up to [Speed] spaces per turn
 ActionPoint Movement
 Spend 1 ActionPoint per space moved
 ```
-
-Check your campaign book for movement rules.
-
-## Turn Structure Variations
-
-Your campaign may use different turn structures:
-
-**Flexible**: Move and act in any order
-**Phased**: Movement happens in specific phase
-**Action Economy**: Limited actions per turn
-
-Always check your campaign's turn structure Feature before playing.
