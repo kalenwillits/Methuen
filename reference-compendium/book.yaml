@@ -1,8 +1,8 @@
 metadata:
-  title: "designers-guide"
+  title: "reference-compendium"
   author: "Kalen Willits"
   language: "en-US"
-  identifier: "95cdf305-cafc-4914-a3a3-a18d3dff3927"
+  identifier: "55719dca-404f-4510-8376-de2c4b0079d5"
   date: "2025-12-25"
   publisher: ""
   description: "A book created with ebk"
@@ -54,4 +54,4 @@ discovery:
 
 # Output settings
 output:
-  filename: "designers-guide.epub"
+  filename: "reference-compendium.epub"

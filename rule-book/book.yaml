@@ -1,8 +1,8 @@
 metadata:
-  title: "designers-guide"
+  title: "rule-book"
   author: "Kalen Willits"
   language: "en-US"
-  identifier: "95cdf305-cafc-4914-a3a3-a18d3dff3927"
+  identifier: "756d0b35-eb70-4988-9827-f159508701bf"
   date: "2025-12-25"
   publisher: ""
   description: "A book created with ebk"
@@ -54,4 +54,4 @@ discovery:
 
 # Output settings
 output:
-  filename: "designers-guide.epub"
+  filename: "rule-book.epub"

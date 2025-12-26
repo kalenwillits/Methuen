@@ -1,6 +1,6 @@
 # Introduction
 
-Welcome to **designers-guide**!
+Welcome to **rule-book**!
 
 This is a sample chapter to help you get started with ebk.
 
