@@ -1,30 +1,20 @@
 metadata:
-  title: "rule-book"
+  title: "Methuen Rule Book"
   author: "Kalen Willits"
   language: "en-US"
-  identifier: "756d0b35-eb70-4988-9827-f159508701bf"
+  identifier: "a8f9e3c2-7b4d-4a1e-9f6c-2d5e8b1a3c7f"
   date: "2025-12-25"
   publisher: ""
-  description: "A book created with ebk"
-  subject: ""
-
-# Optional cover image (place anywhere in project - ebk will find it by extension)
-# Uncomment and provide your cover image
-# cover_image: "cover.jpg"
+  description: "The complete technical reference for the Methuen tabletop game framework"
+  subject: "Games, Tabletop Gaming, Rules"
 
 # Default CSS applied to all chapters
 default_css:
   - "custom.css"
 
 # Content discovery configuration
-# ebk recursively searches for files based on extensions, not directory structure
 discovery:
-  # Root directory for recursive search
-  # Use "." for project root (default), or specify a subdirectory like "pages"
   root: "."
-
-  # Directories to exclude from all searches (markdown, CSS, images)
-  # Add any directories you want ebk to skip (e.g., drafts, archive, etc.)
   exclude:
     - ".git"
     - ".venv"
@@ -35,23 +25,17 @@ discovery:
     - "build"
     - "dist"
     - "context"
-
-  # File extensions for content (markdown chapters)
   content_extensions:
     - ".md"
-
-  # File extensions for images
   image_extensions:
     - ".jpg"
     - ".jpeg"
     - ".png"
     - ".gif"
     - ".svg"
-
-  # File extensions for stylesheets
   css_extensions:
     - ".css"
 
 # Output settings
 output:
-  filename: "rule-book.epub"
+  filename: "methuen-rule-book.epub"
